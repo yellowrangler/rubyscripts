@@ -1,6 +1,6 @@
 require 'rubygems'
 
-class ServiceLogger
+class loggerService
 
 	def initialize(logfilename)
 		if logfilename != ""

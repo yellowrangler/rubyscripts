@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require './ServiceLogger'
+require './loggerService'
 # require 'fileutils'
 
 #This will look up a file to see if service should continue to be run
@@ -20,14 +20,29 @@ end
 
 #This will rename with date time 
 def renameFiles (logfile, logdirectory) 
-	currentTimestamp = Time.now.strftime("%Y-%m-%d-%H.%M.%S")
+	currentTimestamp = Time.now.strftime("%Y-%m-%d-%H-%M-%S")
 	fromfile = logfile
-	tofile = fromfile + currentTimestamp
-	File.rename(logdirectory+fromfile, logdirectory+tofile)
+	tofileBase = fromfile + currentTimestamp
+	faxfileArray = Dir.glob(logdirectory+fromfile+"*").sort_by{|f| File.mtime(f) }
+	
+	#instantiate the logger 
+	faxlog = loggerService.new("faxLogger")
 
-	#log the file 
-	faxlog = ServiceLogger.new("faxLogger")
-	faxlog.addEntry("Fax Created for "+tofile)
+	i = 1
+	faxfileArray.each do |faxFile|
+		# puts "working on: #{faxFile}"
+		tofileExtention = File.extname(faxFile)
+		tofile = logdirectory+tofile+"_"+i.to_s.rjust(5,'0')+tofileExtention
+		File.rename(faxFile, tofile)
+
+		#log the event
+		faxlog.addEntry("Fax Created for "+tofile)
+
+		i = i + 1
+	end
+
+	
+	faxlog.addEntry("Fax Pages Created for "+tofileBase+" = "+(i-1).to_s)
 end
 
 #This will run the fax service
@@ -46,7 +61,7 @@ end
 
 #This is main routine
 begin
-	faxlog = ServiceLogger.new("faxLogger")
+	faxlog = loggerService.new("faxLogger")
 	faxlog.addEntry("Started fax process")
 	faxNo = faxLoop(0)
 	while faxNo > 0 && runLoopCheck
