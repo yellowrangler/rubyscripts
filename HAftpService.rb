@@ -5,9 +5,9 @@ require 'net/ftp'
 require 'uri'
 require 'xmlsimple'
 require 'json'
-require './msgProcessingService'
+require './HAmsgProcessingService'
 
-class ftpService
+class HAftpService
 	
 	def initialize(ftpip, remotedir, ftpfilename, ftpuser, ftppassword)
 		@ftpIP = ftpip
@@ -17,7 +17,7 @@ class ftpService
 		@ftpPassword = ftppassword
 		@historyDir = "history"
 		
-		@msg = msgProcessingService.new()
+		@msg = HAmsgProcessingService.new()
 	end
 
 	def doPush

@@ -1,60 +1,12 @@
-SL~2013-11-04 18:29:05~Started fax process
-SL~2013-11-04 18:29:10~End of faxLoop.
-
-SL~2013-11-04 18:29:28~Started fax process
-SL~2013-11-04 18:29:33~End of faxLoop.
-
-SL~2013-11-04 18:32:14~Started fax process
-SL~2013-11-04 18:32:19~End of faxLoop.
-
-SL~2013-11-04 18:35:14~Started fax process
-SL~2013-11-04 18:35:19~End of faxLoop.
-
-SL~2013-11-04 18:44:39~Started fax process
-SL~2013-11-04 18:44:44~End of faxLoop.
-
-SL~2013-11-04 18:45:43~Started fax process
-SL~2013-11-04 18:45:48~End of faxLoop.
-
-SL~2013-11-04 18:46:31~Started fax process
-SL~2013-11-04 18:47:58~Started fax process
-SL~2013-11-04 18:48:34~Started fax process
-SL~2013-11-04 18:49:57~Started fax process
-SL~2013-11-04 18:53:12~Started fax process
-SL~2013-11-04 18:54:29~Started fax process
-SL~2013-11-04 18:54:34~End of faxLoop.
-
-SL~2013-11-04 18:55:10~Started fax process
-SL~2013-11-04 18:55:15~End of faxLoop.
-
-SL~2013-11-04 18:56:07~Started fax process
-SL~2013-11-04 18:56:12~End of faxLoop.
-
-SL~2013-11-04 18:56:46~Started fax process
-SL~2013-11-04 18:56:51~End of faxLoop.
-
-SL~2013-11-04 18:57:28~Started fax process
-SL~2013-11-04 18:57:33~End of faxLoop.
-
-SL~2013-11-04 18:58:21~Started fax process
-SL~2013-11-04 18:58:26~End of faxLoop.
-
-SL~2013-11-04 19:04:15~Started fax process
-SL~2013-11-04 19:04:20~End of faxLoop.
-
-SL~2013-11-04 19:05:10~Started fax process
-SL~2013-11-04 19:05:15~End of faxLoop.
-
-SL~2013-11-04 19:08:16~Started fax process
-SL~2013-11-04 19:08:21~End of faxLoop.
-
-SL~2013-11-04 19:08:45~Started fax process
-SL~2013-11-04 19:08:50~In faxLoop. Nbr = 1
-SL~2013-11-04 19:08:55~In faxLoop. Nbr = 2
-SL~2013-11-04 19:09:01~In faxLoop. Nbr = 3
-SL~2013-11-04 19:09:06~In faxLoop. Nbr = 4
-SL~2013-11-04 19:09:11~In faxLoop. Nbr = 5
-SL~2013-11-04 19:09:16~In faxLoop. Nbr = 6
-SL~2013-11-04 19:09:21~In faxLoop. Nbr = 7
-SL~2013-11-04 19:09:26~End of faxLoop.
+SL~2013-11-07 13:09:25~Fax Manager start
+SL~2013-11-07 13:09:25~Started fax process
+SL~2013-11-07 13:09:25~Fax Created for /home/tarryc/Development/rubyScripts/data/HA_2013-11-07-13-09-25_00001.txt
+SL~2013-11-07 13:09:25~Fax Created for /home/tarryc/Development/rubyScripts/data/HA_2013-11-07-13-09-25_00002.txt
+SL~2013-11-07 13:09:25~Fax Created for /home/tarryc/Development/rubyScripts/data/HA_2013-11-07-13-09-25_00003.txt
+SL~2013-11-07 13:09:25~Fax Pages Created for HA_2013-11-07-13-09-25 = 3
+SL~2013-11-07 13:09:30~Fax Pages Created for HA_2013-11-07-13-09-30 = 0
+SL~2013-11-07 13:09:35~Fax Pages Created for HA_2013-11-07-13-09-35 = 0
+SL~2013-11-07 13:09:40~Fax Pages Created for HA_2013-11-07-13-09-40 = 0
+SL~2013-11-07 13:09:45~End of faxLoop. Total Nbrs = 4
+SL~2013-11-07 13:09:45~Fax Manager end
 

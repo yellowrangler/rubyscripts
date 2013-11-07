@@ -4,7 +4,7 @@ require 'net/ftp'
 require 'uri'
 require 'net/smtp'
 
-class gMailService
+class HAgMailService
 	
 	def initialize()
 		@server = "smtp.gmail.com"

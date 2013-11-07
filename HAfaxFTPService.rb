@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require './loggerService'
+require './HAloggerService'
 # require 'fileutils'
 
 #This will look up a file to see if service should continue to be run
@@ -70,6 +70,6 @@ begin
 		faxlog.addEntry("End faxLoop while. Nbr = "+faxNo.to_s)		
 	end
 	
-	faxlog.addEntry("End of faxLoop. Total Nbrs = "+faxNo.to_s+"\n")	
+	faxlog.addEntry("End of faxLoop. Total Nbrs = "+faxNo.to_s)	
 end
 

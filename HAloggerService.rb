@@ -1,16 +1,21 @@
 require 'rubygems'
 
-class loggerService
+class HAloggerService
 
-	def initialize(logfilename)
-		if logfilename != ""
-			@logfile = logfilename
+	def initialize(logfile,logdirectory)
+		if logfile != ""
+			@logfile = logfile
 		else	
 			@logfile = "log.txt"
 		end	
 
-		@logdirectory = "log"
-		@fullyQualified = @logdirectory + "/" + @logfile
+		if logdirectory != ""
+			@logdirectory = logdirectory
+		else	
+			@logfile = "log"
+		end	
+
+		@fullyQualified = "#{@logdirectory}/#{@logfile}"
 		@message = ""
 		@file = ""
 		@rec = ""
@@ -30,7 +35,7 @@ class loggerService
 
 		currentTimestamp = Time.now.strftime("%Y-%m-%d %H:%M:%S")
 
-		@rec = "SL~" + sprintf("%s~", currentTimestamp) + @message + "\n" 
+		@rec = "SL~" + sprintf("%s~", currentTimestamp) + "#{@message}\n" 
 		@file.puts(@rec) 
 		closeLog()
 	end

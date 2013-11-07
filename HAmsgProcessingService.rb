@@ -1,14 +1,18 @@
 require 'rubygems'
-require './gMailService'
-require './loggerService'
+require './HAgMailService'
+require './HAloggerService'
 
-class msgProcessingService
+class HAmsgProcessingService
 
-	def initialize()
+	def initialize(logfile, logdirectory)
 		@msgType = ""
 		@msgOption = ""		
-		@log = loggerService.new
-		@em = gMailService.new
+		if logfile
+			@log = HAloggerService.new(logfile,logdirectory)
+		else
+			@log = HAloggerService.new("","")
+		end	
+		@em = HAgMailService.new
 		@msg = ""
 	end
 	  
