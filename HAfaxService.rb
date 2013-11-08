@@ -4,17 +4,14 @@ require './HAmsgProcessingService'
 
 class HAfaxService
 
-	def initialize()
-		@logfile = "faxLogger"
-		@logdirectory = "log"
+	def initialize(logfile,logdirectory,faxFileNameTest,faxFileNameBuild,faxDirectory)
+		@logfile = logfile
+		@logdirectory = logdirectory
 		@msg = HAmsgProcessingService.new(@logfile,@logdirectory)		
 
-		@faxFileNameTest = "hafax"
-		@faxFileNameBuild = "HA_"
-		@faxDirectory = "/data/fax/incoming/"
-		# @faxFileNameTest = "test"
-		# @faxFileNameBuild = "HA_"
-		# @faxDirectory = "/home/tarryc/Development/rubyScripts/data/"
+		@faxFileNameTest = faxFileNameTest
+		@faxFileNameBuild = faxFileNameBuild
+		@faxDirectory = faxDirectory
 
 		@wait = 5
 	end
@@ -36,7 +33,6 @@ class HAfaxService
 		system 'killall efax'
 		
 		sysCmdStr = "efax -d /dev/ttyS3 -r #{@faxDirectory}#{@faxFileNameTest} -w -iS0=3 2>&1 >> #{@faxDirectory}fax.log"
-		puts "this is fax info #{sysCmdStr}"
 		system sysCmdStr
 
 		#rename file 
@@ -77,7 +73,8 @@ class HAfaxService
 		faxfileArray.each do |faxFile|
 			# puts "working on: #{faxFile}"
 			tofileExtention = File.extname(faxFile)
-			tofile = directory+tofileBase+"_"+i.to_s.rjust(5,'0')+tofileExtention
+			# tofile = directory+tofileBase+"_"+i.to_s.rjust(5,'0')+tofileExtention
+			tofile = directory+tofileBase+tofileExtention+".tiff"
 			File.rename(faxFile, tofile)
 
 			#delete file if exists

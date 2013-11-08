@@ -62,7 +62,7 @@ class HAmsgProcessingService
 	end	# end of def 
 	
 	def processMail
-		@em.sendMessage(@msg)
+		@em.sendMessageGmail(@msg,"")
 	end	# end of def 
 	
 	def processErr

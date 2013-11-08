@@ -16,13 +16,18 @@ class HAgMailService
 		@accountPassword = "yellowrangler"	
 	end
   
-	def sendMessageGmail(smsg)
-		@msg = smsg
+	def sendMessageGmail(msg,subject)
+		@msg = msg
+		if subject
+			@subject = subject
+		else	
+			@subject = "Ruby generated email"
+		end	
  	begin
 message = <<EOF
-From: Turksandcaicos Server <#{@account}>
+From: Arksoft Server <#{@account}>
 To: <#{@sendTo}>
-Subject: Ruby generated email 
+Subject:  <#{@subject}> 
 
 #{@msg}
 EOF

@@ -9,58 +9,52 @@ require './HAmsgProcessingService'
 
 class HAftpService
 	
-	def initialize(ftpip, remotedir, ftpfilename, ftpuser, ftppassword)
-		@ftpIP = ftpip
-		@remoteDir = remotedir
+	def initialize(ftpIP,localDir,ftpUser,ftpPassword,remoteDir,ftpfilename,historyfile,historyDir,logfile,logdirectory)
+		@ftpIP = ftpIP
+		@localDir = localDir
+		@ftpUser = ftpUser
+		@ftpPassword = ftpPassword
+		@remoteDir = remoteDir
 		@ftpfilename = ftpfilename
-		@ftpUser = ftpuser
-		@ftpPassword = ftppassword
-		@historyDir = "history"
+		@historyfile = historyfile
+		@historyDir = historyDir
+		@logfile = logfile
+		@logdirectory = logdirectory
 		
-		@msg = HAmsgProcessingService.new()
+		@msg = HAmsgProcessingService.new(@logfile,@logdirectory)
 	end
 
-	def doPush
+	def sendFTPs
 		begin
-		ftp = Net::FTP.new(host = @ftpIP)
-		ftp.login(user = @ftpUser, passwd = @ftpPassword)
-		ftp.chdir(@remoteDir)
-		ftp.puttextfile(@ftpfilename, remotefile = File.basename(@ftpfilename))
-		ftp.close
-		
-		renameFTPfile
+			ftpfileArray = Dir.glob(@localDir+@ftpfilename+"*").sort_by{|f| File.mtime(f) }
+
+			ftp = Net::FTP.open(@ftpIP, @ftpUser, @ftpPassword)
+				ftp.chdir(@remoteDir)
+				ftpfileArray.each do |filename|
+					@msg.processMsg("info", "log", "FTP processing file #{filename}")
+					File.open(filename) { |file| 	
+						ftp.putbinaryfile(file, remotefile = File.basename(filename)) 
+					}
+				end
+
+			ftp.close
 		rescue
-		msgStr = "FTP failed on push. file =  #{@ftpfilename}.  Error #{$!}"
-		@msg.processMsg("error", "severe", msgStr)
+			msgStr = "FTP failed on push. file =  #{@ftpfilename}.  Error #{$!}"
+			@msg.processMsg("error", "severe", msgStr)
 		end
 	end	
 	
-	def doGet
+	def getFTP
 		begin
-		ftp = Net::FTP.new(host = @ftpIP)
-		ftp.login(user = @ftpUser, passwd = @ftpPassword)
-		ftp.chdir(@remoteDir)
-		ftp.gettextfile(@ftpfilename, remotefile = File.basename(@ftpfilename))
-		ftp.close
+			ftp = Net::FTP.new(host = @ftpIP)
+			ftp.login(user = @ftpUser, passwd = @ftpPassword)
+			ftp.chdir(@remoteDir)
+			ftp.getbinaryfile(@ftpfilename, remotefile = File.basename(@ftpfilename))
+			ftp.close
 		rescue 
-		msgStr = "FTP failed on get. file =  #{@ftpfilename}.  Error #{$!}. Host = #{@ftpIP} User = #{@ftpUser} Password = #{@ftpPassword}"
-		@msg.processMsg("error", "severe", msgStr)
+			msgStr = "FTP failed on get. file =  #{@ftpfilename}.  Error #{$!}. Host = #{@ftpIP} User = #{@ftpUser} Password = #{@ftpPassword}"
+			@msg.processMsg("error", "severe", msgStr)
 		end
 	end	
-	
-	def getFileName
-		@ftpfilename
-	end	
-	
-	def renameFTPfile
-		currentTimestamp = Time.now.strftime("%Y%m%d%H%M%S")
-		
-		input = File.open(@ftpfilename)  
-		data_to_copy = input.read()  
-		newFile = @historyDir + "/" + currentTimestamp + "_" + @ftpfilename 
-		output = File.open(newFile , 'w')
-		output.write(data_to_copy)  
-		#File.rename(@ftpfilename, @ftpfilename + currentTimestamp.to_s)	
-	end
 	
  end

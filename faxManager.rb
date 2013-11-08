@@ -1,18 +1,25 @@
 #!/usr/bin/env ruby
 require './HAmsgProcessingService'
 require './HAfaxService'
-# require 'fileutils'
 
-# Start the fax service. This service will start efax whciwill wait for fax.
-# After fax is collected files will be renamed and logs written
-begin
-	system ("./fax.sh")
-	msg = HAmsgProcessingService.new("faxLogger","log")
-	msg.processMsg("info", "log", "Fax Manager start")
 
-	fax = HAfaxService.new()
-	fax.getFax
-	
-	msg.processMsg("info", "log", "Fax Manager end\n")
-end
+logfile = "faxLogger"
+logdirectory = "/data/fax/incoming/"
+faxFileNameTest = "hafax"
+faxFileNameBuild = "HA_"
+faxDirectory "/data/fax/incoming/"
+localDir = "data/"
+
+#setup linux usb faxing
+system ("./fax.sh")
+
+# Send faxes to catcher server directory
+msg = HAmsgProcessingService.new(logfile,logdirectory)
+msg.processMsg("info", "log", "FAX Manager start")
+
+#catch fax items
+fax = HAfaxService.new(logfile,logdirectory,faxFileNameTest,faxFileNameBuild,faxDirectory)
+fax.getFax
+
+msg.processMsg("info", "log", "FAX Manager end\n")
 
